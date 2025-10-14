@@ -50,7 +50,10 @@ When all checks pass, the script creates a flag file at `tasks/.prerequisites_va
 - Timestamp of last validation
 - Status of each checked component
 
-This flag file is automatically removed if validation fails on subsequent runs.
+**Notes:**
+- The `tasks/` directory itself is tracked in git (contains task definitions)
+- The `.prerequisites_validated` file is git-ignored (runtime state)
+- File is automatically removed if validation fails on subsequent runs
 
 ## Sample Output
 
@@ -283,6 +286,48 @@ grep AWS_REGION .env/iceberg.env
 
 ## Environment Variables
 
+### AWS_PROFILE
+
+The script supports AWS_PROFILE in multiple ways:
+
+**Option 1: Set in `.env/iceberg.env` (recommended)**
+```shell
+# Edit .env/iceberg.env
+AWS_PROFILE=production
+
+# Run validation - automatically uses the profile from file
+./validate-prerequisites.sh
+```
+
+**Option 2: Export as environment variable**
+```shell
+# Use a specific AWS profile
+export AWS_PROFILE=my-profile
+
+# Run validation
+./validate-prerequisites.sh
+```
+
+**Option 3: One-time override**
+```shell
+# Override the file setting for one run
+AWS_PROFILE=staging ./validate-prerequisites.sh
+```
+
+**Priority Order:**
+1. Environment variable `AWS_PROFILE` (if already exported) - **highest priority**
+2. `AWS_PROFILE` from `.env/iceberg.env` (if set)
+3. Default AWS credential chain (environment vars → default profile → IAM role) - **lowest priority**
+
+**Without AWS_PROFILE:**
+- Uses AWS's default credential chain
+- Checks: environment variables → default profile → EC2/ECS roles
+
+**With AWS_PROFILE:**
+- Uses the specified named profile
+- Helpful when you have multiple AWS accounts
+- Can be set once in `.env/iceberg.env` instead of exporting each time
+
 ### AWS_REGION
 
 The script uses `AWS_REGION` (or defaults to `us-east-1`) when checking AWS credentials:
@@ -292,6 +337,14 @@ The script uses `AWS_REGION` (or defaults to `us-east-1`) when checking AWS cred
 export AWS_REGION=us-west-2
 
 # Run validation
+./validate-prerequisites.sh
+```
+
+**Combined example:**
+```shell
+# Use specific profile and region
+export AWS_PROFILE=production
+export AWS_REGION=eu-west-1
 ./validate-prerequisites.sh
 ```
 
@@ -317,9 +370,32 @@ export PATH="$PATH:/path/to/tool"
 1. Run `aws configure` to set up credentials
 2. Verify credentials file exists: `~/.aws/credentials`
 3. Check credentials are valid:
-  
+
 ```shell
 aws sts get-caller-identity
+```
+
+**If using a specific profile:**
+
+```shell
+# Set the profile
+export AWS_PROFILE=my-profile
+
+# Verify it works
+aws sts get-caller-identity --profile $AWS_PROFILE
+
+# List available profiles
+aws configure list-profiles
+```
+
+**If you have multiple profiles:**
+
+```shell
+# Check which profile is being used
+echo $AWS_PROFILE
+
+# Or see all configured profiles
+cat ~/.aws/config
 ```
 
 ### Permission denied

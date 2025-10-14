@@ -18,6 +18,7 @@ This repository provides a Python script demonstrating how to interact with Apac
 # 1. Set up environment configuration
 cp .env/iceberg.env.template .env/iceberg.env
 # Edit .env/iceberg.env and set your AWS_REGION
+# Optionally set AWS_PROFILE if using named profiles
 
 # 2. Validate prerequisites
 ./validate-prerequisites.sh
@@ -44,6 +45,8 @@ shirc/
 ├── SNOWFLAKE_ICEBERG_GUIDE.md         # Detailed documentation
 ├── QUICK_REFERENCE.md                 # Quick reference cheat sheet
 ├── VALIDATION_GUIDE.md                # Validation script documentation
+├── AWS_PROFILE_GUIDE.md               # AWS profile configuration guide
+├── AWS_PROFILE_EXAMPLES.md            # AWS profile usage examples
 ├── setup.sql                          # SQL setup scripts
 ├── .env/                              # Environment configuration
 │   ├── iceberg.env.template           # Configuration template
@@ -54,9 +57,15 @@ shirc/
 │   ├── s3_bucket_policy.json          # IAM policy for bucket access
 │   ├── POLICY_README.md               # Policy documentation
 │   └── README.md                      # AWS scripts documentation
+├── tasks/                             # Task definitions and scripts
+│   ├── aws-tasks.yml                  # AWS task definitions
+│   ├── cmd/                           # Command scripts directory
+│   │   └── bucket_s3_create.sh        # S3 bucket creation
+│   ├── .prerequisites_validated       # Validation flag (git-ignored)
+│   └── README.md                      # Tasks documentation
 └── README.md                          # This file
 
-Note: tasks/ directory is created at runtime to store validation flags
+Note: The tasks/ directory is tracked. Only .prerequisites_validated is git-ignored
 ```
 
 ## 🎯 What This Script Does
@@ -137,6 +146,9 @@ This will:
 
 - **[SNOWFLAKE_ICEBERG_GUIDE.md](SNOWFLAKE_ICEBERG_GUIDE.md)** - Comprehensive guide with detailed examples
 - **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick reference cheat sheet
+- **[VALIDATION_GUIDE.md](VALIDATION_GUIDE.md)** - Prerequisites validation documentation
+- **[AWS_PROFILE_GUIDE.md](aws/AWS_PROFILE_GUIDE.md)** - AWS profile configuration guide
+- **[AWS_PROFILE_EXAMPLES.md](aws/AWS_PROFILE_EXAMPLES.md)** - AWS profile usage examples
 
 ## 🔑 Key Features
 

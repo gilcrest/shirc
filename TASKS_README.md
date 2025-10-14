@@ -2,13 +2,30 @@
 
 ## Overview
 
-The `tasks/` directory is created automatically at runtime to store validation flags and other task-related state files. This directory is ignored by git (see `.gitignore`).
+The `tasks/` directory contains task definitions and scripts for the project. It also stores runtime state files like validation flags. The directory itself is tracked by git, but certain runtime files (like `.prerequisites_validated`) are git-ignored.
 
 ## Contents
 
-### `.prerequisites_validated`
+### Task Definitions
 
-This file is created by `validate-prerequisites.sh` when all prerequisite checks pass.
+**`aws-tasks.yml`**
+- Task definitions for AWS operations
+- Tracked in git
+
+**`cmd/`**
+- Command scripts directory
+- Contains executable scripts for tasks
+- Tracked in git
+
+**`cmd/bucket_s3_create.sh`**
+- Script for creating S3 buckets
+- Tracked in git
+
+### Runtime State Files
+
+**`.prerequisites_validated`**
+- Created by `validate-prerequisites.sh` when all prerequisite checks pass
+- Git-ignored (not tracked)
 
 **Sample contents:**
 ```bash
@@ -65,17 +82,32 @@ if [ -f "tasks/.prerequisites_validated" ]; then
 fi
 ```
 
+## Git Tracking
+
+### What's Tracked
+- ✅ The `tasks/` directory itself
+- ✅ Task definition files (e.g., `*.yml`, `*.sh`)
+- ✅ Any scripts or configurations in the directory
+
+### What's Git-Ignored
+- ❌ `.prerequisites_validated` - Runtime state file
+- ❌ Any other temporary/runtime files as defined in `.gitignore`
+
+### Rationale
+The directory structure is tracked to maintain task definitions and scripts, while runtime state files are ignored to prevent committing machine-specific validation status.
+
 ## File Lifecycle
 
 ### Creation
 - Created by `validate-prerequisites.sh` when all checks pass
 - Contains validation status and timestamp
 - Lists status of each checked component
+- Stored in existing `tasks/` directory
 
 ### Removal
 - Automatically removed if validation fails on subsequent runs
 - Can be manually deleted to force re-validation
-- Ignored by git (not committed to repository)
+- Never committed to repository (git-ignored)
 
 ### Regeneration
 - Re-created each time validation passes
@@ -148,7 +180,7 @@ steps:
 
 ## Best Practices
 
-1. **Don't commit tasks/ directory** - It's already in `.gitignore`
+1. **Commit task definitions** - The `tasks/` directory and its files are tracked
 2. **Run validation before main operations** - Ensures environment is properly configured
 3. **Check validation in CI/CD** - Catch missing tools early in pipeline
 4. **Re-validate after updates** - After installing new tools or changing config
