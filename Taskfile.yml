@@ -19,3 +19,11 @@ tasks:
         vars:
           S3_BUCKET_NAME: $S3_BUCKET_NAME
           AWS_REGION: $AWS_REGION
+
+  generate-iam-policy:
+    desc: Generate an IAM/S3 policy for accessing the given bucket.
+    cmds:
+      - task: aws-cli:generate-iam-policy-for-s3-bucket-access
+        vars:
+          S3_BUCKET_NAME: $S3_BUCKET_NAME
+          S3_PREFIX: $S3_PREFIX
