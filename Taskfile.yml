@@ -19,25 +19,3 @@ tasks:
         vars:
           S3_BUCKET_NAME: $S3_BUCKET_NAME
           AWS_REGION: $AWS_REGION
-
-  delete-s3-bucket:
-    desc: Delete an S3 bucket using AWS CLI.
-    summary: |
-      Delete an S3 bucket using AWS CLI. Force flag, when set, deletes all objects in the bucket including the bucket itself.
-      Note that versioned objects will not be deleted in this process which would cause the bucket deletion to fail because
-      the bucket would not be empty.
-    cmds:
-      - task: aws-cli:delete-s3-bucket
-        vars:
-          S3_BUCKET_NAME: $S3_BUCKET_NAME
-          FORCE: $FORCE
-
-  generate-iam-policy-for-s3-bucket-access:
-    desc: Generate an IAM policy JSON document for S3 bucket access using AWS CLI.
-    cmds:
-      - task: aws-cli:generate-iam-policy-for-s3-bucket-access
-        vars:
-          S3_BUCKET_NAME: $S3_BUCKET_NAME
-          S3_PREFIX: $S3_PREFIX
-          TEMPLATE_FILE: $TEMPLATE_FILE
-          OUTPUT_FILE: $OUTPUT_FILE
