@@ -21,7 +21,9 @@ tasks:
       - mkdir -p tasks/aws-cli/json/output
       - chmod +x ./tasks/aws-cli/cmd/generate-iam-policy-for-bucket-access.sh && ./tasks/aws-cli/cmd/generate-iam-policy-for-bucket-access.sh "{{.S3_BUCKET_NAME}}" "{{.TEMPLATE_FILE}}" "{{.OUTPUT_FILE}}" "{{.S3_PREFIX}}"
 
-  upload-files-to-s3:
-    desc: Uploads all files in the tasks/aws-cli/upload directory to the provided S3 bucket
+  create-iam-policy:
+    desc: Creates an IAM policy from the generated bucket policy JSON file.
+    vars:
+      POLICY_DOCUMENT: '{{.POLICY_DOCUMENT | default "./tasks/aws-cli/json/output/bucket-policy-output.json"}}'
     cmds:
-      - ./tasks/aws-cli/cmd/upload_to_s3.sh "{{.BUCKET_NAME_OR_S3_URI}}" "{{.S3_OPTIONAL_PREFIX}}"
+      - aws iam create-policy --policy-name "{{.IAM_POLICY_NAME}}" --policy-document "file://{{.POLICY_DOCUMENT}}"

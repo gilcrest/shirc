@@ -27,3 +27,11 @@ tasks:
         vars:
           S3_BUCKET_NAME: $S3_BUCKET_NAME
           S3_PREFIX: $S3_PREFIX
+
+  create-iam-policy:
+    desc: Create an IAM policy from the generated bucket policy JSON file.
+    cmds:
+      - task: aws-cli:create-iam-policy
+        vars:
+          IAM_POLICY_NAME: $IAM_POLICY_NAME
+          POLICY_DOCUMENT: $POLICY_DOCUMENT
