@@ -29,9 +29,10 @@ tasks:
           S3_PREFIX: $S3_PREFIX
 
   create-iam-policy:
-    desc: Create an IAM policy from the generated bucket policy JSON file.
+    desc: |
+      Create an IAM policy from the generated bucket policy JSON file. The POLICY_DOCUMENT
+      is deliberately not set here to use the default value defined in the aws-cli task.
     cmds:
       - task: aws-cli:create-iam-policy
         vars:
           IAM_POLICY_NAME: $IAM_POLICY_NAME
-          POLICY_DOCUMENT: $POLICY_DOCUMENT
