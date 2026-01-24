@@ -25,6 +25,11 @@ tasks:
     cmds:
       - ./tasks/aws-cli/cmd/create-iam-policy.sh "{{.POLICY_NAME}}" "{{.POLICY_DOCUMENT}}"
 
+  delete-iam-policy:
+    desc: Deletes an IAM policy by ARN.
+    cmds:
+      - aws iam delete-policy --policy-arn "{{.IAM_POLICY_ARN}}"
+
   refresh-sso-token:
     desc: Refreshes the AWS SSO token for the specified profile.
     cmds:
