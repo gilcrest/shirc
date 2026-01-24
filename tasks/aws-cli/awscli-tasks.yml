@@ -5,12 +5,12 @@ tasks:
   make-s3-bucket:
     desc: Creates an s3 bucket.
     cmds:
-      - chmod +x ./tasks/aws-cli/cmd/make-bucket.sh && ./tasks/aws-cli/cmd/make-bucket.sh "{{.S3_BUCKET_NAME}}" "{{.AWS_REGION}}"
+      - ./tasks/aws-cli/cmd/make-bucket.sh "{{.S3_BUCKET_NAME}}" "{{.AWS_REGION}}"
 
   delete-s3-bucket:
     desc: Deletes an s3 bucket (must be empty).
     cmds:
-      - chmod +x ./tasks/aws-cli/cmd/delete-bucket.sh && ./tasks/aws-cli/cmd/delete-bucket.sh "{{.S3_BUCKET_NAME}}" "{{.FORCE}}"
+      - ./tasks/aws-cli/cmd/delete-bucket.sh "{{.S3_BUCKET_NAME}}" "{{.FORCE}}"
 
   generate-iam-policy-for-s3-bucket-access:
     desc: Generates an IAM policy json document for accessing an s3 bucket from a template.
@@ -19,7 +19,7 @@ tasks:
       OUTPUT_FILE: '{{.OUTPUT_FILE | default "tasks/aws-cli/json/output/bucket-policy-output.json"}}'
     cmds:
       - mkdir -p tasks/aws-cli/json/output
-      - chmod +x ./tasks/aws-cli/cmd/generate-iam-policy-for-bucket-access.sh && ./tasks/aws-cli/cmd/generate-iam-policy-for-bucket-access.sh "{{.S3_BUCKET_NAME}}" "{{.TEMPLATE_FILE}}" "{{.OUTPUT_FILE}}" "{{.S3_PREFIX}}"
+      - ./tasks/aws-cli/cmd/generate-iam-policy-for-bucket-access.sh "{{.S3_BUCKET_NAME}}" "{{.TEMPLATE_FILE}}" "{{.OUTPUT_FILE}}" "{{.S3_PREFIX}}"
 
   create-iam-policy:
     desc: Creates an IAM policy from the generated bucket policy JSON file.
