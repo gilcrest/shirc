@@ -19,7 +19,7 @@ BUCKET_NAME="${BUCKET_NAME#s3://}"
 # Define output paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-LOG_FILE="$BASE_DIR/bucket.log"
+LOG_FILE="$BASE_DIR/logs/aws-resources.log"
 AWS_OUTPUT_FILE="$BASE_DIR/json/aws-output.json"
 
 # Create the bucket
