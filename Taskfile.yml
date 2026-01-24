@@ -56,6 +56,7 @@ tasks:
   aws-resources-teardown:
     desc: Deletes the S3 bucket and IAM policy.
     cmds:
+      - task: validate-prerequisites:awscli
       - task: aws-cli:delete-s3-bucket
         vars:
           S3_BUCKET_NAME: $S3_BUCKET_NAME
