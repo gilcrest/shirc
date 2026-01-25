@@ -52,6 +52,16 @@ tasks:
     cmds:
       - ./tasks/aws-cli/cmd/attach-policy-to-role.sh
 
+  detach-policy-from-role:
+    desc: Detaches the IAM policy from the IAM role (reads ARNs from aws-output.json).
+    cmds:
+      - ./tasks/aws-cli/cmd/detach-policy-from-role.sh
+
+  delete-iam-role:
+    desc: Deletes an IAM role (reads ARN from aws-output.json).
+    cmds:
+      - ./tasks/aws-cli/cmd/delete-iam-role.sh
+
   refresh-sso-token:
     desc: Refreshes the AWS SSO token for the specified profile.
     cmds:

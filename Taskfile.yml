@@ -27,15 +27,20 @@ tasks:
       - task: aws-cli:create-iam-policy
         vars:
           IAM_POLICY_NAME: $IAM_POLICY_NAME
+      - task: aws-cli:generate-trust-policy
+      - task: aws-cli:create-iam-role
+        vars:
+          IAM_ROLE_NAME: $IAM_ROLE_NAME
+      - task: aws-cli:attach-policy-to-role
 
   aws-resources-teardown:
-    desc: Deletes the S3 bucket and IAM policy.
+    desc: Deletes the IAM role, IAM policy, and S3 bucket.
     cmds:
       - task: validate-prerequisites:awscli
+      - task: aws-cli:detach-policy-from-role
+      - task: aws-cli:delete-iam-role
+      - task: aws-cli:delete-iam-policy
       - task: aws-cli:delete-s3-bucket
         vars:
           S3_BUCKET_NAME: $S3_BUCKET_NAME
           FORCE: $FORCE
-      - task: aws-cli:delete-iam-policy
-        vars:
-          IAM_POLICY_ARN: $IAM_POLICY_ARN
