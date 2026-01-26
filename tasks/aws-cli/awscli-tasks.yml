@@ -62,6 +62,11 @@ tasks:
     cmds:
       - ./tasks/aws-cli/cmd/delete-iam-role.sh
 
+  update-trust-policy-with-snowflake-user:
+    desc: Updates the IAM role trust policy with Snowflake's IAM user ARN from external volume description.
+    cmds:
+      - ./tasks/aws-cli/cmd/update-trust-policy-with-snowflake-user.sh
+
   refresh-sso-token:
     desc: Refreshes the AWS SSO token for the specified profile.
     cmds:
