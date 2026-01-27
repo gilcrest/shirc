@@ -116,18 +116,18 @@ EXTERNAL_VOLUME_NAME=iceberg_ext_vol
 ┌─────────────────────────────────────────────────────────────┐
 │                         AWS Account                         │
 │                                                             │
-│  ┌─────────────────────┐      ┌────────────────────────┐  │
-│  │   S3 Bucket         │      │   IAM Role             │  │
-│  │   your-bucket       │◄─────┤   YourIcebergRole      │  │
-│  │   └─ iceberg/       │      │   (Trust Policy)       │  │
-│  └─────────────────────┘      └────────────────────────┘  │
+│  ┌─────────────────────┐      ┌────────────────────────┐    │
+│  │   S3 Bucket         │      │   IAM Role             │    │
+│  │   your-bucket       │◄─────┤   YourIcebergRole      │    │
+│  │   └─ iceberg/       │      │   (Trust Policy)       │    │
+│  └─────────────────────┘      └────────────────────────┘    │
 │                                          ▲                  │
 │                                          │                  │
-│  ┌─────────────────────────────────────┐│                  │
-│  │   IAM Policy                        ││                  │
-│  │   YourIcebergAccessPolicy           ││                  │
-│  │   (S3 permissions)                  ││                  │
-│  └─────────────────────────────────────┘│                  │
+│  ┌─────────────────────────────────────┐ │                  │
+│  │   IAM Policy                        │ │                  │
+│  │   YourIcebergAccessPolicy           │ │                  │
+│  │   (S3 permissions)                  │ │                  │
+│  └─────────────────────────────────────┘ │                  │
 │                                          │                  │
 └──────────────────────────────────────────┼──────────────────┘
                                            │
@@ -136,12 +136,12 @@ EXTERNAL_VOLUME_NAME=iceberg_ext_vol
 ┌──────────────────────────────────────────┼──────────────────┐
 │                    Snowflake             │                  │
 │                                          │                  │
-│  ┌──────────────────────────────────────▼──────────────┐  │
-│  │   External Volume: iceberg_ext_vol                   │  │
-│  │   - Storage: s3://your-bucket/iceberg/               │  │
-│  │   - Role ARN: arn:aws:iam::xxx:role/YourRole         │  │
-│  │   - External ID: your-external-id                    │  │
-│  └──────────────────────────────────────────────────────┘  │
+│  ┌──────────────────────────────────────▼──────────────┐    │
+│  │   External Volume: iceberg_ext_vol                  │    │
+│  │   - Storage: s3://your-bucket/iceberg/              │    │
+│  │   - Role ARN: arn:aws:iam::xxx:role/YourRole        │    │
+│  │   - External ID: your-external-id                   │    │
+│  └─────────────────────────────────────────────────────┘    │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
