@@ -80,5 +80,9 @@ tmp/
 temp/
 *.tmp
 
+# Generated output files
+output/*
+!output/.gitkeep
+
 # Task runtime files
 tasks/.prerequisites_validated

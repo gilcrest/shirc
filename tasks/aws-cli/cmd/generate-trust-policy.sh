@@ -6,7 +6,7 @@ set -euo pipefail
 
 if [ $# -lt 2 ]; then
     echo "Usage: $0 TEMPLATE_FILE OUTPUT_FILE"
-    echo "Example: $0 tasks/aws-cli/json/template/trust-policy-template.json tasks/aws-cli/json/output/trust-policy-output.json"
+    echo "Example: $0 tasks/aws-cli/json/template/trust-policy-template.json output/trust-policy-output.json"
     exit 1
 fi
 

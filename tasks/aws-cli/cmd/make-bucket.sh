@@ -20,7 +20,7 @@ BUCKET_NAME="${BUCKET_NAME#s3://}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 LOG_FILE="$BASE_DIR/logs/aws-resources.log"
-AWS_OUTPUT_FILE="$BASE_DIR/json/aws-output.json"
+AWS_OUTPUT_FILE="output/aws-output.json"
 
 # Create the bucket
 echo "Creating bucket $BUCKET_NAME in region $REGION..."
