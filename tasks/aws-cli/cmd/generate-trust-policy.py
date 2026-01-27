@@ -38,7 +38,7 @@ def main():
     args = parser.parse_args()
 
     template_path = Path(args.template)
-    output_path = args.output or "tasks/aws-cli/json/output/trust-policy-output.json"
+    output_path = args.output or "output/trust-policy-output.json"
 
     # Get external ID from environment variable
     external_id = os.environ.get("TRUST_POLICY_EXTERNAL_ID")

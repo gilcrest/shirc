@@ -211,9 +211,7 @@ shirc/
 │   │   │   ├── generate-trust-policy.sh
 │   │   │   └── update-trust-policy-with-snowflake-user.sh
 │   │   └── json/
-│   │       ├── template/             # JSON templates
-│   │       ├── output/               # Generated policies
-│   │       └── aws-output.json       # AWS resource metadata
+│   │       └── template/             # JSON templates
 │   ├── snow-cli/
 │   │   ├── snow-cli-tasks.yml        # Snowflake CLI task definitions
 │   │   ├── cmd/                      # Snowflake CLI scripts
@@ -224,11 +222,15 @@ shirc/
 │   │   │   ├── create_external_volume.sql
 │   │   │   ├── drop_external_volume.sql
 │   │   │   └── desc_external_volume.sql
-│   │   └── json/                     # Snowflake outputs
-│   │       ├── external-volume-desc.json
-│   │       └── external-volume-desc-storage-location.json
 │   └── validate-prerequisites/
 │       └── validate-prerequisite-tasks.yml
+├── output/                           # Generated output files (git-ignored)
+│   ├── aws-output.json               # AWS resource ARNs and metadata
+│   ├── bucket-policy-output.json     # Generated bucket policy
+│   ├── trust-policy-output.json      # Generated trust policy
+│   ├── trust-policy-updated.json     # Updated trust policy with Snowflake IAM user
+│   ├── external-volume-desc.json     # Snowflake external volume description
+│   └── external-volume-desc-storage-location.json  # Storage location details
 └── README.md                         # This file
 ```
 
@@ -249,11 +251,14 @@ shirc/
 
 ### Resource Metadata
 
-All resource details are stored in JSON files:
+All generated resource details are stored in the `output/` directory:
 
-- `tasks/aws-cli/json/aws-output.json` - AWS resource ARNs and metadata
-- `tasks/snow-cli/json/external-volume-desc.json` - Full external volume description
-- `tasks/snow-cli/json/external-volume-desc-storage-location.json` - Storage location details
+- `output/aws-output.json` - AWS resource ARNs and metadata
+- `output/bucket-policy-output.json` - Generated IAM policy for S3 bucket access
+- `output/trust-policy-output.json` - Generated trust policy for IAM role
+- `output/trust-policy-updated.json` - Updated trust policy with Snowflake IAM user
+- `output/external-volume-desc.json` - Full external volume description
+- `output/external-volume-desc-storage-location.json` - Storage location details
 
 ## 🔒 Security Best Practices
 
@@ -281,14 +286,14 @@ All resource details are stored in JSON files:
 
 ### Debug Mode
 
-View detailed output by checking the script execution:
+View detailed output by checking the generated files:
 
 ```bash
 # View AWS output
-cat tasks/aws-cli/json/aws-output.json | jq '.'
+cat output/aws-output.json | jq '.'
 
 # View Snowflake external volume details
-cat tasks/snow-cli/json/external-volume-desc-storage-location.json | jq '.'
+cat output/external-volume-desc-storage-location.json | jq '.'
 ```
 
 ## 📚 Resources

@@ -4,13 +4,13 @@ set -euo pipefail
 # Check if required arguments are provided
 if [ $# -lt 2 ]; then
     echo "Usage: $0 SQL_FILE EXTERNAL_VOLUME_NAME OUTPUT_FILE"
-    echo "Example: $0 tasks/snow-cli/batch-0/desc_external_volume.sql iceberg_ext_vol tasks/snow-cli/json/external-volume-desc.json"
+    echo "Example: $0 tasks/snow-cli/batch-0/desc_external_volume.sql iceberg_ext_vol output/external-volume-desc.json"
     exit 1
 fi
 
 SQL_FILE="$1"
 EXTERNAL_VOLUME_NAME="$2"
-OUTPUT_FILE="${3:-tasks/snow-cli/json/external-volume-desc.json}"
+OUTPUT_FILE="${3:-output/external-volume-desc.json}"
 
 # Derive the storage location output file from the main output file
 OUTPUT_DIR=$(dirname "$OUTPUT_FILE")

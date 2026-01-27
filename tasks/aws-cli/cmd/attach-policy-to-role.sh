@@ -5,9 +5,7 @@ set -euo pipefail
 # Usage: ./attach-policy-to-role.sh
 
 # Define input path
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-AWS_OUTPUT_FILE="$BASE_DIR/json/aws-output.json"
+AWS_OUTPUT_FILE="output/aws-output.json"
 
 # Verify aws-output.json exists
 if [ ! -f "$AWS_OUTPUT_FILE" ]; then

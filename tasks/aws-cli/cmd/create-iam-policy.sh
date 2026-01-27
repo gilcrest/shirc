@@ -14,9 +14,7 @@ POLICY_NAME="$1"
 POLICY_DOCUMENT="$2"
 
 # Define output path
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-AWS_OUTPUT_FILE="$BASE_DIR/json/aws-output.json"
+AWS_OUTPUT_FILE="output/aws-output.json"
 
 # Create the IAM policy and capture the response
 echo "Creating IAM policy '$POLICY_NAME'..."

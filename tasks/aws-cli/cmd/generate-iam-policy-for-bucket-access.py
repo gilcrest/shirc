@@ -38,7 +38,7 @@ def main():
     args = parser.parse_args()
 
     template_path = Path(args.template)
-    output_path = args.output or "tasks/aws-cli/json/output/bucket-policy.json"
+    output_path = args.output or "output/bucket-policy.json"
 
     try:
         policy = generate_s3_bucket_policy(template_path, args.bucket, args.prefix)

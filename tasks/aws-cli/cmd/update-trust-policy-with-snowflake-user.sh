@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Path to the JSON files
-STORAGE_LOCATION_FILE="tasks/snow-cli/json/external-volume-desc-storage-location.json"
-AWS_OUTPUT_FILE="tasks/aws-cli/json/aws-output.json"
-TEMP_TRUST_POLICY_FILE="tasks/aws-cli/json/output/trust-policy-updated.json"
+STORAGE_LOCATION_FILE="output/external-volume-desc-storage-location.json"
+AWS_OUTPUT_FILE="output/aws-output.json"
+TEMP_TRUST_POLICY_FILE="output/trust-policy-updated.json"
 
 # Check if storage location file exists
 if [ ! -f "$STORAGE_LOCATION_FILE" ]; then
