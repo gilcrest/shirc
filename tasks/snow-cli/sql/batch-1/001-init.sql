@@ -34,11 +34,12 @@ GRANT ROLE IDENTIFIER($DEMO_ENGINEER_ROLE) TO USER IDENTIFIER($DEMO_SETUP_USER);
 ALTER USER IDENTIFIER($DEMO_ENGINEER_USER) SET DEFAULT_ROLE = $DEMO_ENGINEER_ROLE;
 
 -- ========================================================================
--- STEP 4: Users for each role, each user needs a Personal Access Token
+-- STEP 4: Grant resource access to demo roles
 -- ========================================================================
 --GRANT USAGE ON INTEGRATION ICEBERG_S3_INT TO ROLE DATA_ENGINEER; -- optional
 GRANT USAGE ON EXTERNAL VOLUME IDENTIFIER($DEMO_EXTERNAL_VOLUME) TO ROLE IDENTIFIER($DEMO_ENGINEER_ROLE);
 -- Analysts only read (no create), so USAGE on EXTERNAL VOLUME is not strictly required for them.
+GRANT USAGE ON WAREHOUSE IDENTIFIER($WAREHOUSE_NAME) TO ROLE IDENTIFIER($DEMO_ENGINEER_ROLE);
 
 -- ========================================================================
 -- STEP 5: Create Database, Schemas, and grants on them
