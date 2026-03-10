@@ -6,6 +6,7 @@ includes:
   snow-cli:
     taskfile: ./tasks/snow-cli/snowcli-tasks.yml
     dir: ./tasks/snow-cli
+  python-tasks: ./tasks/python/python-tasks.yml
 
 env:
   ENV_DIR: .env
@@ -46,7 +47,7 @@ tasks:
       - task: aws-cli:delete-s3-bucket
         vars:
           S3_BUCKET_NAME: $S3_BUCKET_NAME
-          FORCE: $FORCE
+          FORCE: --force
 
   snowflake-resources-up:
     desc: Validates Snowflake CLI, creates Snowflake external volume.
@@ -61,10 +62,9 @@ tasks:
           EXTERNAL_VOLUME_NAME: $EXTERNAL_VOLUME_NAME
 
   snowflake-resources-teardown:
-    desc: Drops Iceberg V3 demo tables, the database, and the external volume.
+    desc: Drops the Snowflake external volume.
     cmds:
       - task: validate-prerequisites:snowcli
-      - task: snow-cli:drop-tables
       - task: snow-cli:drop-database-if-exists
         vars:
           CLI_CONNECTION_NAME: $CLI_CONNECTION_NAME
@@ -73,8 +73,8 @@ tasks:
         vars:
           EXTERNAL_VOLUME_NAME: $EXTERNAL_VOLUME_NAME
 
-  demo-up:
-    desc: Sets up AWS and Snowflake resources for Iceberg V3 demo.
+  infrastructure-up:
+    desc: Sets up AWS and Snowflake infrastructure for Iceberg demos.
     cmds:
       - task: aws-resources-up
       - task: snowflake-resources-up
@@ -83,13 +83,31 @@ tasks:
       - task: snow-cli:upload-files-to-internal-named-stage
         vars:
           CLI_CONNECTION_NAME: $CLI_CONNECTION_NAME
-      - task: snow-cli:create-tables
-      - task: snow-cli:load-data
+
+  demo-up:
+    desc: Sets up infrastructure and deploys Snowflake notebook for Iceberg demo.
+    cmds:
+      - task: infrastructure-up
       - task: snow-cli:generate-notebook
       - task: snow-cli:deploy-notebook
 
   demo-teardown:
     desc: Tears down AWS and Snowflake resources for Iceberg demo.
     cmds:
+      - task: snowflake-resources-teardown
+      - task: aws-resources-teardown
+
+  spark-demo-up:
+    desc: Sets up infrastructure, Spark environment, and launches Jupyter
+    cmds:
+      - task: infrastructure-up
+      - task: validate-prerequisites:conda
+      - task: python-tasks:create-conda-env
+      - task: python-tasks:run-jupyter
+
+  spark-demo-teardown:
+    desc: Tears down Spark environment and infrastructure.
+    cmds:
+      - task: python-tasks:remove-conda-env
       - task: snowflake-resources-teardown
       - task: aws-resources-teardown
