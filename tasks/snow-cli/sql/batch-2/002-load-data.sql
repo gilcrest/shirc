@@ -13,8 +13,8 @@ USE WAREHOUSE IDENTIFIER($WAREHOUSE_NAME);
 USE DATABASE  IDENTIFIER($DEMO_DATABASE);
 USE SCHEMA    IDENTIFIER($DEMO_SCHEMA);
 
--- ── Load into customer_events (base table)
-COPY INTO customer_events (event_id, payload)
+-- ── Load into customer_events_v3_features (base table)
+COPY INTO customer_events_v3_features (event_id, payload)
 FROM (
     SELECT
         $1:event_id::STRING,

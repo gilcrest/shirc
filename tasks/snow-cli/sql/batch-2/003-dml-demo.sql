@@ -22,7 +22,7 @@ SET region = 'us-west-2'
 WHERE region = 'us-west';
 
 -- ── MERGE: efficient with deletion vectors
-MERGE INTO customer_events t
+MERGE INTO customer_events_v3_features t
 USING (
     SELECT 'evt_merge_test' AS event_id,
            PARSE_JSON('{"source":"merge_test","region":"us-east-1"}') AS payload
@@ -35,10 +35,10 @@ WHEN NOT MATCHED THEN INSERT (event_id, payload) VALUES (s.event_id, s.payload);
 -- Each row in a V3 table has a unique BIGINT identifier maintained by Snowflake.
 -- This enables CDC, auditing, and row-level data governance.
 SELECT _row_id, event_id, event_ts, payload
-FROM   customer_events
+FROM   customer_events_v3_features
 LIMIT  10;
 
--- ── Confirm the table is using Iceberg format version 3
-SHOW PARAMETERS LIKE 'ICEBERG_VERSION' IN TABLE customer_events;
+-- ── Confirm the tables are using Iceberg format version 3
+SHOW PARAMETERS LIKE 'ICEBERG_VERSION' IN TABLE customer_events_v3_features;
 SHOW PARAMETERS LIKE 'ICEBERG_VERSION' IN TABLE customer_events_partitioned;
 SHOW PARAMETERS LIKE 'ICEBERG_VERSION' IN TABLE iot_events;

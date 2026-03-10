@@ -16,4 +16,4 @@ USE SCHEMA    IDENTIFIER($DEMO_SCHEMA);
 DROP DYNAMIC TABLE  IF EXISTS daily_event_counts;
 DROP ICEBERG TABLE  IF EXISTS iot_events;
 DROP ICEBERG TABLE  IF EXISTS customer_events_partitioned;
-DROP ICEBERG TABLE  IF EXISTS customer_events;
+DROP ICEBERG TABLE  IF EXISTS customer_events_v3_features;

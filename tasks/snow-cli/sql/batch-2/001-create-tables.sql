@@ -21,17 +21,19 @@ USE DATABASE  IDENTIFIER($DEMO_DATABASE);
 USE SCHEMA    IDENTIFIER($DEMO_SCHEMA);
 
 -- ========================================================================
--- TABLE 1: customer_events
+-- TABLE 1: customer_events_v3_features
 -- Demonstrates: VARIANT with auto-shredding, column DEFAULT (V3 feature)
+-- Note: named distinctly from the notebook's CUSTOMER_EVENTS table to avoid
+-- conflicts when both the notebook demo and this batch are run in the same schema.
 -- ========================================================================
-CREATE ICEBERG TABLE IF NOT EXISTS customer_events (
+CREATE ICEBERG TABLE IF NOT EXISTS customer_events_v3_features (
     event_id   STRING           NOT NULL,
     event_ts   TIMESTAMP_LTZ(6) DEFAULT CURRENT_TIMESTAMP(),  -- V3: column default
     payload    VARIANT                                         -- V3: auto-shredded VARIANT
 )
 ICEBERG_VERSION = 3
 CATALOG         = 'SNOWFLAKE'
-BASE_LOCATION   = 'customer_events';
+BASE_LOCATION   = 'customer_events_v3_features';
 
 -- ========================================================================
 -- TABLE 2: customer_events_partitioned
